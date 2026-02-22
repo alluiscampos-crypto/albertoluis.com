@@ -224,10 +224,11 @@ a {
 }
 
 .cv-summary {
-    max-width: 800px;
-    margin: 1.5rem auto 1.5rem;
-    line-height: 1.8;
+    max-width: 650px;
+    margin: 1rem auto 1.5rem;
+    line-height: 1.7;
     color: var(--text-light);
+    font-size: 1rem;
 }
 
 .cv-contact {
@@ -250,6 +251,16 @@ a {
 
 .cv-actions {
     margin-top: 1.5rem;
+}
+
+.btn-download {
+    font-size: 1.1rem;
+    padding: 1rem 2.5rem;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-download:hover {
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
 }
 
 .cv-section {
