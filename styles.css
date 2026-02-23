@@ -6,14 +6,14 @@
 }
 
 :root {
-    --primary-color: #2563eb;
-    --secondary-color: #1e40af;
+    --primary-color: #5B2C6F;
+    --secondary-color: #F39C12;
     --text-dark: #1f2937;
     --text-light: #6b7280;
     --bg-light: #f9fafb;
     --bg-white: #ffffff;
     --border-color: #e5e7eb;
-    --success-color: #10b981;
+    --success-color: #F39C12;
     --transition: all 0.3s ease;
 }
 
@@ -81,7 +81,7 @@ a {
 /* Hero Section */
 .hero {
     padding: 6rem 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #5B2C6F 0%, #F39C12 100%);
     color: white;
 }
 
@@ -256,11 +256,11 @@ a {
 .btn-download {
     font-size: 1.1rem;
     padding: 1rem 2.5rem;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 12px rgba(91, 44, 111, 0.3);
 }
 
 .btn-download:hover {
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 6px 20px rgba(91, 44, 111, 0.4);
 }
 
 .cv-section {
@@ -426,10 +426,18 @@ a {
     border-top: 4px solid var(--primary-color);
 }
 
+.skill-category:nth-child(even) {
+    border-top-color: var(--secondary-color);
+}
+
 .skill-category h3 {
     font-size: 1.2rem;
     margin-bottom: 1rem;
     color: var(--primary-color);
+}
+
+.skill-category:nth-child(even) h3 {
+    color: var(--secondary-color);
 }
 
 .skill-list {
@@ -461,17 +469,41 @@ a {
     margin: 0 auto;
 }
 
+.blog-header {
+    position: relative;
+}
+
+.blog-logo {
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto 1.5rem;
+    display: block;
+}
+
+.purple-text {
+    color: var(--primary-color);
+}
+
+.gold-text {
+    color: var(--secondary-color);
+}
+
 .blog-placeholder {
     text-align: center;
     padding: 4rem 2rem;
     background: var(--bg-light);
     border-radius: 1rem;
+    border: 3px solid transparent;
+    border-image: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) 1;
 }
 
 .blog-placeholder h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .blog-placeholder p {
