@@ -1,3 +1,6 @@
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
 /* Reset & Base Styles */
 * {
     margin: 0;
@@ -15,10 +18,12 @@
     --border-color: #e5e7eb;
     --success-color: #F39C12;
     --transition: all 0.3s ease;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-family: var(--font-body);
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--bg-white);
@@ -55,6 +60,7 @@ a {
 }
 
 .logo {
+    font-family: var(--font-heading);
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary-color);
@@ -90,12 +96,14 @@ a {
 }
 
 .hero h1 {
+    font-family: var(--font-heading);
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
 
 .hero h2 {
+    font-family: var(--font-body);
     font-size: 1.5rem;
     font-weight: 400;
     opacity: 0.9;
@@ -190,6 +198,7 @@ a {
 }
 
 .highlight-card h3 {
+    font-family: var(--font-heading);
     font-size: 1.5rem;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
@@ -213,6 +222,7 @@ a {
 }
 
 .cv-header h1 {
+    font-family: var(--font-heading);
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
 }
@@ -268,6 +278,7 @@ a {
 }
 
 .cv-section h2 {
+    font-family: var(--font-heading);
     font-size: 2rem;
     margin-bottom: 2rem;
     color: var(--text-dark);
@@ -325,6 +336,7 @@ a {
 }
 
 .position h3 {
+    font-family: var(--font-heading);
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
     color: var(--text-dark);
@@ -402,6 +414,7 @@ a {
 }
 
 .education-item h3 {
+    font-family: var(--font-heading);
     font-size: 1.2rem;
     margin-bottom: 0.25rem;
     transition: var(--transition);
@@ -431,6 +444,7 @@ a {
 }
 
 .skill-category h3 {
+    font-family: var(--font-heading);
     font-size: 1.2rem;
     margin-bottom: 1rem;
     color: var(--primary-color);
@@ -498,6 +512,7 @@ a {
 }
 
 .blog-placeholder h2 {
+    font-family: var(--font-heading);
     font-size: 2rem;
     margin-bottom: 1rem;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -651,6 +666,7 @@ a {
 }
 
 .blog-post-card h2 {
+    font-family: var(--font-heading);
     font-size: 1.8rem;
     margin-bottom: 1rem;
     color: var(--text-dark);
@@ -783,6 +799,7 @@ a {
 }
 
 .post-title {
+    font-family: var(--font-heading);
     font-size: 2.5rem;
     line-height: 1.2;
     margin-bottom: 1rem;
@@ -797,9 +814,11 @@ a {
 }
 
 .post-content {
+    font-family: var(--font-body);
     font-size: 1.1rem;
     line-height: 1.9;
     color: var(--text-dark);
+    font-weight: 400;
 }
 
 .post-content p {
