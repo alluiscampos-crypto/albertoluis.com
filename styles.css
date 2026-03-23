@@ -715,6 +715,26 @@ a {
     margin: 0 auto;
 }
 
+.post-blog-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 3px solid var(--border-color);
+}
+
+.blog-logo-post {
+    max-width: 250px;
+    height: auto;
+    margin: 0 auto 1rem;
+    display: block;
+}
+
+.blog-title-post {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
 .post-header {
     display: flex;
     justify-content: space-between;
