@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe - FirstWho Blog</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="container">
+            <a href="index.html" class="logo">Alberto Luis</a>
+            <div class="nav-links">
+                <a href="cv.html">CV</a>
+                <a href="blog.html">Blog</a>
+                <a href="mailto:al.luis.campos@gmail.com">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="cv-container">
+        <div class="container">
+            <div class="subscribe-container">
+                <img src="firstwho-logo.jpg" alt="FirstWho" class="blog-logo-large">
+                <h1><span class="purple-text">First</span><span class="gold-text">Who</span></h1>
+                <p class="subscribe-tagline">Subscribe to receive new posts on finance, analysis, and what matters most.</p>
+                
+                <form id="subscribeForm" class="subscribe-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Subscribe & Access Blog</button>
+                </form>
+
+                <p class="privacy-note">Your email will only be used to notify you of new posts. No spam, ever.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Alberto Luis. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            // Store subscription in localStorage (for demo - you'd use a real backend)
+            const subscriber = {
+                name: name,
+                email: email,
+                subscribedAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem('blogSubscriber', JSON.stringify(subscriber));
+            
+            // Redirect to blog
+            window.location.href = 'blog.html';
+        });
+    </script>
+</body>
+</html>

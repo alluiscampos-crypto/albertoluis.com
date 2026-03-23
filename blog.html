@@ -23,14 +23,11 @@
             <div class="cv-header blog-header">
                 <img src="firstwho-logo.jpg" alt="FirstWho" class="blog-logo">
                 <h1><span class="purple-text">First</span><span class="gold-text">Who</span></h1>
-                <p class="cv-title">Insights on finance, analysis, and strategic thinking</p>
+                <p class="cv-title">Insights on finance, analysis, and what matters most</p>
             </div>
 
-            <section class="blog-posts">
-                <div class="blog-placeholder">
-                    <h2>Coming Soon</h2>
-                    <p>Blog posts will appear here. Stay tuned for insights on financial analysis, forecasting, and strategic planning.</p>
-                </div>
+            <section class="blog-posts" id="blogContent">
+                <!-- Content loaded via JavaScript based on subscription status -->
             </section>
         </div>
     </main>
@@ -40,5 +37,38 @@
             <p>&copy; 2026 Alberto Luis. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Check subscription status
+        const subscriber = JSON.parse(localStorage.getItem('blogSubscriber'));
+        const blogContent = document.getElementById('blogContent');
+
+        if (!subscriber) {
+            // Not subscribed - redirect to subscription page
+            window.location.href = 'subscribe.html';
+        } else {
+            // Subscribed - show blog posts
+            blogContent.innerHTML = `
+                <div class="welcome-message">
+                    <p>Welcome back, ${subscriber.name}! 👋</p>
+                </div>
+
+                <article class="blog-post-card">
+                    <div class="post-date">March 23, 2026</div>
+                    <h2><a href="post-first-who.html">First Who - Lo más importante</a></h2>
+                    <p class="post-excerpt">
+                        Esa sensación como si estuvieras en el círculo polar ártico con ese pie fuera del edredón... 
+                        Un momento de claridad sobre lo que realmente importa en el camino de la vida.
+                    </p>
+                    <div class="post-tags">
+                        <span class="tag">Personal</span>
+                        <span class="tag">Family</span>
+                        <span class="tag">Philosophy</span>
+                    </div>
+                    <a href="post-first-who.html" class="read-more">Read more →</a>
+                </article>
+            `;
+        }
+    </script>
 </body>
 </html>
