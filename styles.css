@@ -518,3 +518,25 @@ a:hover {
     font-style: italic;
     color: var(--text-primary);
 }
+
+/* Blog Logo Styles */
+.blog-logo,
+.blog-logo-large,
+.blog-logo-post {
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.3))
+            drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+    max-width: 100%;
+    height: auto;
+}
+
+.blog-logo {
+    max-width: 300px;
+}
+
+.blog-logo-large {
+    max-width: 350px;
+}
+
+.blog-logo-post {
+    max-width: 250px;
+}
