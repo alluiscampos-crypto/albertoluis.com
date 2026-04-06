@@ -629,8 +629,20 @@ a:hover {
     border-bottom: 1px solid var(--border-color);
 }
 
+.cv-company-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cv-company-logo {
+    height: 32px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
 .cv-timeline-company h3 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 500;
     letter-spacing: -0.01em;
     color: var(--text-primary);
