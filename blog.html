@@ -219,13 +219,50 @@
             .hero h1 { font-size: 4.5rem; }
         }
 
-        /* ---------- Posts section ---------- */
+        /* ---------- Posts section: parallax Shire landscape ---------- */
         .posts-section {
-            background: linear-gradient(180deg, #000 0%, #0a0612 50%, #000 100%);
+            position: relative;
+            overflow: hidden;
+            background: #000;
             padding: 80px 24px 60px;
         }
 
+        .scape { position: absolute; inset: 0; }
+
+        .scape-layer {
+            position: absolute;
+            top: 0;
+            left: -6%;
+            width: 112%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .scape-sky  { animation: driftSky 90s ease-in-out infinite alternate; }
+        .scape-far  { animation: driftFar 70s ease-in-out infinite alternate; }
+        .scape-near { animation: driftNear 45s ease-in-out infinite alternate; }
+
+        @keyframes driftSky  { to { transform: translateX(1.5%); } }
+        @keyframes driftFar  { to { transform: translateX(-2.5%); } }
+        @keyframes driftNear { to { transform: translateX(3.5%); } }
+
+        .scape-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                #000 0%,
+                rgba(0, 0, 5, 0.45) 14%,
+                rgba(2, 3, 10, 0.55) 55%,
+                rgba(0, 0, 0, 0.92) 100%);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .scape-layer { animation: none; }
+        }
+
         .posts-inner {
+            position: relative;
+            z-index: 1;
             max-width: 44rem;
             margin: 0 auto;
         }
@@ -237,11 +274,66 @@
             margin-bottom: 40px;
         }
 
+        @property --orbit {
+            syntax: '<angle>';
+            inherits: false;
+            initial-value: 0deg;
+        }
+
         .post-card {
             border-radius: 24px;
             padding: 32px;
             margin-bottom: 28px;
-            background: rgba(255,255,255,0.02);
+            background: rgba(10, 8, 16, 0.45);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            will-change: transform;
+        }
+
+        /* comet of light orbiting the card border (gold head + purple tail-mate) */
+        .post-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.8px;
+            background: conic-gradient(from var(--orbit),
+                transparent 0deg 32deg,
+                rgba(253, 185, 39, 0) 42deg,
+                rgba(253, 185, 39, 0.95) 58deg,
+                #fff8e6 63deg,
+                rgba(253, 185, 39, 0.95) 68deg,
+                transparent 86deg,
+                transparent 212deg,
+                rgba(139, 92, 246, 0) 222deg,
+                rgba(139, 92, 246, 0.9) 238deg,
+                #f3eaff 243deg,
+                rgba(139, 92, 246, 0.9) 248deg,
+                transparent 266deg 360deg);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+            animation: orbit 5s linear infinite;
+        }
+
+        @keyframes orbit { to { --orbit: 360deg; } }
+
+        .post-card:hover {
+            transform: scale(1.035);
+            box-shadow:
+                0 12px 50px rgba(0, 0, 0, 0.5),
+                0 0 36px rgba(253, 185, 39, 0.14),
+                0 0 60px rgba(139, 92, 246, 0.12);
+        }
+
+        .post-card:hover::after {
+            filter: brightness(1.6) saturate(1.2);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .post-card::after { animation: none; }
+            .post-card:hover { transform: none; }
         }
 
         .post-card .post-date {
@@ -357,6 +449,12 @@
 
     <!-- Posts (only visible to subscribers) -->
     <section class="posts-section" id="posts">
+        <div class="scape" aria-hidden="true">
+            <img class="scape-layer scape-sky" src="images/landscape-sky.webp" alt="">
+            <img class="scape-layer scape-far" src="images/landscape-far.webp" alt="">
+            <img class="scape-layer scape-near" src="images/landscape-near.webp" alt="">
+            <div class="scape-overlay"></div>
+        </div>
         <div class="posts-inner" id="blogContent">
             <!-- Content loaded via JavaScript based on subscription status -->
         </div>
