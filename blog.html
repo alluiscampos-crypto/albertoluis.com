@@ -229,22 +229,21 @@
 
         .scape { position: absolute; inset: 0; }
 
-        .scape-layer {
+        .scape-photo {
             position: absolute;
-            top: 0;
-            left: -6%;
-            width: 112%;
+            inset: 0;
+            width: 100%;
             height: 100%;
             object-fit: cover;
+            transform-origin: 50% 65%;
+            animation: kenburns 75s ease-in-out infinite alternate;
         }
 
-        .scape-sky  { animation: driftSky 90s ease-in-out infinite alternate; }
-        .scape-far  { animation: driftFar 70s ease-in-out infinite alternate; }
-        .scape-near { animation: driftNear 45s ease-in-out infinite alternate; }
-
-        @keyframes driftSky  { to { transform: translateX(1.5%); } }
-        @keyframes driftFar  { to { transform: translateX(-2.5%); } }
-        @keyframes driftNear { to { transform: translateX(3.5%); } }
+        /* slow cinematic drift: gentle zoom + lateral pan */
+        @keyframes kenburns {
+            from { transform: scale(1.06) translateX(-1.2%); }
+            to   { transform: scale(1.18) translateX(1.6%); }
+        }
 
         .scape-overlay {
             position: absolute;
@@ -257,7 +256,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .scape-layer { animation: none; }
+            .scape-photo { animation: none; }
         }
 
         .posts-inner {
@@ -450,9 +449,9 @@
     <!-- Posts (only visible to subscribers) -->
     <section class="posts-section" id="posts">
         <div class="scape" aria-hidden="true">
-            <img class="scape-layer scape-sky" src="images/landscape-sky.webp" alt="">
-            <img class="scape-layer scape-far" src="images/landscape-far.webp" alt="">
-            <img class="scape-layer scape-near" src="images/landscape-near.webp" alt="">
+            <!-- Local copy first; falls back to Unsplash CDN (photo by Peter Thomas, Unsplash License) -->
+            <img class="scape-photo" src="images/landscape-photo.jpg" alt=""
+                 onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1760681557274-243f7fad99eb?q=80&w=2400&auto=format&fit=crop';">
             <div class="scape-overlay"></div>
         </div>
         <div class="posts-inner" id="blogContent">
