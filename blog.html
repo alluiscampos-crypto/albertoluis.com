@@ -1,63 +1,389 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>Blog - Alberto Luis</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
+        :root {
+            --mamba-purple: #552583;
+            --mamba-purple-light: #8b5cf6;
+            --mamba-gold: #FDB927;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #000;
+            color: #fff;
+        }
+
+        /* ---------- Liquid glass ---------- */
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.01);
+            background-blend-mode: luminosity;
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            border: none;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .liquid-glass::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                rgba(255,255,255,0.45) 0%,
+                rgba(255,255,255,0.15) 20%,
+                rgba(255,255,255,0) 40%,
+                rgba(255,255,255,0) 60%,
+                rgba(255,255,255,0.15) 80%,
+                rgba(255,255,255,0.45) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* ---------- Hero with video ---------- */
+        .hero-wrap {
+            position: relative;
+            min-height: 100vh;
+            min-height: 100dvh;
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+        }
+
+        /* Dark cinematic overlay with a subtle Mamba purple tint */
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.85) 100%),
+                radial-gradient(ellipse at 50% 80%, rgba(85,37,131,0.35) 0%, rgba(0,0,0,0) 65%);
+            pointer-events: none;
+        }
+
+        /* ---------- Navigation ---------- */
+        .nav-wrap {
+            position: relative;
+            z-index: 20;
+            padding: 24px;
+        }
+
+        .nav-bar {
+            border-radius: 9999px;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .nav-logo {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.125rem;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-logo .first { color: var(--mamba-purple-light); }
+        .nav-logo .who { color: var(--mamba-gold); }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: #fff; }
+
+        /* ---------- Hero content ---------- */
+        .hero {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .hero-logo {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            margin-bottom: 24px;
+            box-shadow: 0 0 40px rgba(253,185,39,0.25);
+        }
+
+        .hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            font-size: 3.5rem;
+            line-height: 1.05;
+            letter-spacing: -0.025em;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 .first { color: var(--mamba-purple-light); }
+        .hero h1 .who { color: var(--mamba-gold); }
+
+        .hero .tagline {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 34rem;
+            margin-bottom: 36px;
+        }
+
+        .hero blockquote {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.85);
+            max-width: 38rem;
+            border-radius: 24px;
+            padding: 24px 32px;
+        }
+
+        .hero blockquote footer {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-style: normal;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--mamba-gold);
+            margin-top: 12px;
+        }
+
+        .scroll-hint {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 40px;
+        }
+
+        .scroll-hint a {
+            border-radius: 9999px;
+            padding: 14px;
+            color: rgba(255,255,255,0.8);
+            display: inline-flex;
+            text-decoration: none;
+            transition: color 0.2s, transform 0.2s;
+            animation: float 2.5s ease-in-out infinite;
+        }
+
+        .scroll-hint a:hover { color: #fff; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 4.5rem; }
+        }
+
+        /* ---------- Posts section ---------- */
+        .posts-section {
+            background: linear-gradient(180deg, #000 0%, #0a0612 50%, #000 100%);
+            padding: 80px 24px 60px;
+        }
+
+        .posts-inner {
+            max-width: 44rem;
+            margin: 0 auto;
+        }
+
+        .welcome-message {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+        }
+
+        .post-card {
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 28px;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .post-card .post-date {
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--mamba-gold);
+            margin-bottom: 10px;
+        }
+
+        .post-card h2 {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            font-size: 1.75rem;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .post-card h2 a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .post-card h2 a:hover { color: var(--mamba-purple-light); }
+
+        .post-card .post-excerpt {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .tag {
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.8);
+            border: 1px solid rgba(139,92,246,0.4);
+            background: rgba(85,37,131,0.18);
+            border-radius: 9999px;
+            padding: 4px 12px;
+        }
+
+        .read-more {
+            color: var(--mamba-gold);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .read-more:hover { opacity: 0.8; }
+
+        /* ---------- Footer ---------- */
+        .footer {
+            background: #000;
+            text-align: center;
+            padding: 32px 24px;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+        }
+    </style>
 </head>
 <body>
-    <nav class="nav">
-        <div class="container">
-            <a href="index.html" class="logo">Alberto Luis</a>
-            <div class="nav-links">
-                <a href="cv.html">CV</a>
-                <a href="blog.html" class="active">Blog</a>
-                <a href="mailto:al.luis.campos@gmail.com">Contact</a>
-            </div>
-        </div>
-    </nav>
+    <!-- Full-screen cinematic hero -->
+    <div class="hero-wrap">
+        <video id="bgVideo" class="bg-video" muted playsinline autoplay>
+            <!-- If you save the video locally as videos/blog-hero.mp4, the browser will use it first -->
+            <source src="videos/blog-hero.mp4" type="video/mp4">
+            <!-- Fallback: Coverr CDN (royalty-free, commercial use, no attribution required) -->
+            <source src="https://cdn.coverr.co/videos/coverr-slow-mo-basketball-hoop-5187/1080p.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
 
-    <main class="cv-container">
-        <div class="container">
-            <div class="cv-header blog-header">
-                <img src="firstwho-logo.png" alt="FirstWho" class="blog-logo">
-                <h1><span class="purple-text">First</span><span class="gold-text">Who</span></h1>
-                <p class="cv-title">Insights on finance, analysis, and what matters most</p>
-            </div>
+        <header class="nav-wrap">
+            <nav class="nav-bar liquid-glass">
+                <a href="blog.html" class="nav-logo"><span class="first">First</span><span class="who">Who</span></a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="cv.html">CV</a>
+                    <a href="mailto:al.luis.campos@gmail.com">Contact</a>
+                </div>
+            </nav>
+        </header>
 
-            <section class="blog-posts" id="blogContent">
-                <!-- Content loaded via JavaScript based on subscription status -->
-            </section>
+        <main class="hero">
+            <img src="firstwho-logo.png" alt="FirstWho" class="hero-logo">
+            <h1><span class="first">First</span><span class="who">Who</span></h1>
+            <p class="tagline">Insights on finance, analysis, and what matters most</p>
+            <blockquote class="liquid-glass">
+                "The most important thing is to try and inspire people so that they can be great
+                in whatever they want to do."
+                <footer>— Kobe Bryant</footer>
+            </blockquote>
+        </main>
+
+        <div class="scroll-hint">
+            <a href="#posts" class="liquid-glass" aria-label="Ir a los posts">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>
+                </svg>
+            </a>
         </div>
-    </main>
+    </div>
+
+    <!-- Posts (only visible to subscribers) -->
+    <section class="posts-section" id="posts">
+        <div class="posts-inner" id="blogContent">
+            <!-- Content loaded via JavaScript based on subscription status -->
+        </div>
+    </section>
 
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Alberto Luis. All rights reserved.</p>
-        </div>
+        <p>&copy; 2026 Alberto Luis. All rights reserved.</p>
     </footer>
 
     <script>
-        // Check subscription status
+        // ---------- Subscription gate (unchanged logic) ----------
         const subscriber = JSON.parse(localStorage.getItem('blogSubscriber'));
         const blogContent = document.getElementById('blogContent');
 
         if (!subscriber) {
-            // Not subscribed - redirect to subscription page
             window.location.href = 'subscribe.html';
         } else {
-            // Subscribed - show blog posts
             blogContent.innerHTML = `
                 <div class="welcome-message">
                     <p>Welcome back, ${subscriber.name}! 👋</p>
                 </div>
 
-                <article class="blog-post-card">
+                <article class="post-card liquid-glass">
                     <div class="post-date">June 2, 2026</div>
                     <h2><a href="post-por-que-no-creo-en-dios.html">Por qué no creo en Dios</a></h2>
                     <p class="post-excerpt">
-                        La certeza no mide la verdad: mide el lugar donde naciste. Una reflexión sobre religión, 
+                        La certeza no mide la verdad: mide el lugar donde naciste. Una reflexión sobre religión,
                         contradicciones y por qué el empirismo escéptico me llevó a replantear las creencias heredadas.
                     </p>
                     <div class="post-tags">
@@ -68,11 +394,11 @@
                     <a href="post-por-que-no-creo-en-dios.html" class="read-more">Read more →</a>
                 </article>
 
-                <article class="blog-post-card">
+                <article class="post-card liquid-glass">
                     <div class="post-date">April 6, 2026</div>
                     <h2><a href="post-first-who-the-plan.html">First Who - Ellos son El Plan</a></h2>
                     <p class="post-excerpt">
-                        Estoy convencido de que me han hecho inmensamente mejor. Hay muchas formas de amistad, 
+                        Estoy convencido de que me han hecho inmensamente mejor. Hay muchas formas de amistad,
                         pero ellos son hermanos de otra madre. Reflexiones sobre la amistad que te hace mejor persona.
                     </p>
                     <div class="post-tags">
@@ -83,11 +409,11 @@
                     <a href="post-first-who-the-plan.html" class="read-more">Read more →</a>
                 </article>
 
-                <article class="blog-post-card">
+                <article class="post-card liquid-glass">
                     <div class="post-date">March 23, 2026</div>
                     <h2><a href="post-first-who.html">First Who - Lo más importante</a></h2>
                     <p class="post-excerpt">
-                        Esa sensación como si estuvieras en el círculo polar ártico con ese pie fuera del edredón... 
+                        Esa sensación como si estuvieras en el círculo polar ártico con ese pie fuera del edredón...
                         Un momento de claridad sobre lo que realmente importa en el camino de la vida.
                     </p>
                     <div class="post-tags">
@@ -99,6 +425,67 @@
                 </article>
             `;
         }
+
+        // ---------- Video fade loop (same system as the home page) ----------
+        (function () {
+            var video = document.getElementById('bgVideo');
+            var FADE_MS = 500;
+            var FADE_OUT_THRESHOLD = 0.55;
+            var fadingOut = false;
+            var rafId = null;
+
+            function cancelFade() {
+                if (rafId !== null) {
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
+            }
+
+            function fadeTo(target) {
+                cancelFade();
+                var start = parseFloat(video.style.opacity || '0');
+                var startTime = null;
+
+                function step(ts) {
+                    if (startTime === null) startTime = ts;
+                    var progress = Math.min((ts - startTime) / FADE_MS, 1);
+                    video.style.opacity = String(start + (target - start) * progress);
+                    if (progress < 1) {
+                        rafId = requestAnimationFrame(step);
+                    } else {
+                        rafId = null;
+                    }
+                }
+                rafId = requestAnimationFrame(step);
+            }
+
+            video.addEventListener('loadeddata', function () {
+                fadingOut = false;
+                fadeTo(1);
+            });
+
+            video.addEventListener('timeupdate', function () {
+                if (!video.duration) return;
+                var remaining = video.duration - video.currentTime;
+                if (remaining <= FADE_OUT_THRESHOLD && !fadingOut) {
+                    fadingOut = true;
+                    fadeTo(0);
+                }
+            });
+
+            video.addEventListener('ended', function () {
+                cancelFade();
+                video.style.opacity = '0';
+                setTimeout(function () {
+                    video.currentTime = 0;
+                    video.play();
+                    fadingOut = false;
+                    fadeTo(1);
+                }, 100);
+            });
+
+            video.play().catch(function () {});
+        })();
     </script>
 </body>
 </html>

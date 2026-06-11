@@ -4,71 +4,399 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alberto Luis</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #000;
+            color: #fff;
+        }
+
+        .page {
+            position: relative;
+            min-height: 100vh;
+            min-height: 100dvh;
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ---------- Background video ---------- */
+        .bg-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translateY(17%);
+            opacity: 0;
+        }
+
+        /* ---------- Liquid glass ---------- */
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.01);
+            background-blend-mode: luminosity;
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            border: none;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .liquid-glass::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                rgba(255,255,255,0.45) 0%,
+                rgba(255,255,255,0.15) 20%,
+                rgba(255,255,255,0) 40%,
+                rgba(255,255,255,0) 60%,
+                rgba(255,255,255,0.15) 80%,
+                rgba(255,255,255,0.45) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* ---------- Navigation ---------- */
+        .nav-wrap {
+            position: relative;
+            z-index: 20;
+            padding: 24px;
+        }
+
+        .nav-bar {
+            border-radius: 9999px;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.125rem;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: #fff; }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-right .text-btn {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .nav-right .glass-btn {
+            border-radius: 9999px;
+            padding: 8px 24px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .nav-right .glass-btn:hover { background-color: rgba(255,255,255,0.05); }
+
+        @media (min-width: 768px) {
+            .nav-links { display: flex; }
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+            text-align: center;
+            transform: translateY(-10%);
+        }
+
+        .hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            font-size: 3rem;
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 24px;
+            letter-spacing: -0.025em;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+        }
+
+        .hero .subtitle {
+            max-width: 36rem;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            padding: 0 16px;
+            margin-bottom: 32px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .btn-cv {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            color: #000;
+            border-radius: 9999px;
+            padding: 12px 32px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .btn-cv:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .btn-contact {
+            border-radius: 9999px;
+            padding: 12px 32px;
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .btn-contact:hover { background-color: rgba(255,255,255,0.05); }
+
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 3.75rem; white-space: nowrap; }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 { font-size: 4.5rem; }
+        }
+
+        /* ---------- Social footer ---------- */
+        .social {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            padding-bottom: 48px;
+        }
+
+        .social a {
+            border-radius: 9999px;
+            padding: 16px;
+            color: rgba(255,255,255,0.8);
+            display: inline-flex;
+            transition: color 0.2s, background-color 0.2s;
+        }
+
+        .social a:hover {
+            color: #fff;
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        .icon-sm { width: 18px; height: 18px; }
+    </style>
 </head>
 <body>
-    <nav class="nav">
-        <div class="container">
-            <a href="index.html" class="nav-logo">Alberto Luis</a>
-            <div class="nav-links">
-                <a href="cv.html">CV</a>
-                <a href="blog.html">Blog</a>
-                <a href="mailto:al.luis.campos@gmail.com">Contact</a>
-            </div>
-        </div>
-    </nav>
+    <div class="page">
+        <!-- Background video -->
+        <video id="bgVideo" class="bg-video" muted playsinline autoplay
+               src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4"></video>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1 class="hero-title">
-                    Finance analyst focused on<br>
-                    turning data into decisions
-                </h1>
-                <p class="hero-subtitle">
-                    10+ years at HPE doing financial analysis, forecasting, and strategic planning.<br>
-                    Currently preparing for CFA Level III.
-                </p>
-                <div class="hero-cta">
-                    <a href="cv.html" class="btn-primary">View CV</a>
-                    <a href="blog.html" class="btn-secondary">Read blog</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="info-section">
-            <div class="container">
-                <div class="info-grid">
-                    <div class="info-item">
-                        <h3>Experience</h3>
-                        <p>Over a decade in financial analysis and forecasting across EMEA markets</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Education</h3>
-                        <p>CFA Level III Candidate, continuing education in finance and analytics</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Location</h3>
-                        <p>Madrid, Spain · Working with global teams</p>
+        <!-- Navigation -->
+        <header class="nav-wrap">
+            <nav class="nav-bar liquid-glass">
+                <div class="nav-left">
+                    <a href="index.html" class="nav-logo">Alberto Luis</a>
+                    <div class="nav-links">
+                        <a href="cv.html">CV</a>
+                        <a href="alberto-luis-cv.pdf">Resume PDF</a>
+                        <a href="mailto:al.luis.campos@gmail.com">Contact</a>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>Alberto Luis</p>
-                <div class="footer-links">
-                    <a href="mailto:al.luis.campos@gmail.com">al.luis.campos@gmail.com</a>
-                    <span>·</span>
-                    <a href="tel:+34629691126">+34 629 69 11 26</a>
-                    <span>·</span>
-                    <span>Madrid</span>
+                <div class="nav-right">
+                    <a href="mailto:al.luis.campos@gmail.com" class="text-btn">Get in touch</a>
+                    <a href="cv.html" class="glass-btn liquid-glass">View CV</a>
                 </div>
+            </nav>
+        </header>
+
+        <!-- Hero -->
+        <main class="hero">
+            <h1>Turning data into <em>decisions</em></h1>
+            <p class="subtitle">
+                Finance analyst at Hewlett Packard Enterprise with 10+ years in financial
+                analysis, forecasting, and strategic planning across EMEA markets.
+                CFA Level III candidate. Based in Madrid, working with global teams.
+            </p>
+            <div class="hero-actions">
+                <a href="cv.html" class="btn-cv">
+                    View CV
+                    <svg class="icon icon-sm" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="mailto:al.luis.campos@gmail.com" class="btn-contact liquid-glass">Get in touch</a>
             </div>
-        </div>
-    </footer>
+        </main>
+
+        <!-- Contact icons -->
+        <footer class="social">
+            <a href="mailto:al.luis.campos@gmail.com" class="liquid-glass" aria-label="Email Alberto">
+                <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect width="20" height="16" x="2" y="4" rx="2"/>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+            </a>
+            <a href="tel:+34629691126" class="liquid-glass" aria-label="Call Alberto">
+                <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+            </a>
+            <a href="alberto-luis-cv.pdf" class="liquid-glass" aria-label="Download CV as PDF">
+                <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+                    <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+                    <path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>
+                </svg>
+            </a>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            var video = document.getElementById('bgVideo');
+            var FADE_MS = 500;
+            var FADE_OUT_THRESHOLD = 0.55; // seconds before end
+            var fadingOut = false;          // fadingOutRef
+            var rafId = null;
+
+            function cancelFade() {
+                if (rafId !== null) {
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
+            }
+
+            // Fade from the video's CURRENT opacity to a target, over FADE_MS,
+            // using requestAnimationFrame (no CSS transitions).
+            function fadeTo(target) {
+                cancelFade();
+                var start = parseFloat(video.style.opacity || '0');
+                var startTime = null;
+
+                function step(ts) {
+                    if (startTime === null) startTime = ts;
+                    var progress = Math.min((ts - startTime) / FADE_MS, 1);
+                    video.style.opacity = String(start + (target - start) * progress);
+                    if (progress < 1) {
+                        rafId = requestAnimationFrame(step);
+                    } else {
+                        rafId = null;
+                    }
+                }
+                rafId = requestAnimationFrame(step);
+            }
+
+            video.addEventListener('loadeddata', function () {
+                fadingOut = false;
+                fadeTo(1);
+            });
+
+            video.addEventListener('timeupdate', function () {
+                if (!video.duration) return;
+                var remaining = video.duration - video.currentTime;
+                if (remaining <= FADE_OUT_THRESHOLD && !fadingOut) {
+                    fadingOut = true;
+                    fadeTo(0);
+                }
+            });
+
+            video.addEventListener('ended', function () {
+                cancelFade();
+                video.style.opacity = '0';
+                setTimeout(function () {
+                    video.currentTime = 0;
+                    video.play();
+                    fadingOut = false;
+                    fadeTo(1);
+                }, 100);
+            });
+
+            // Some browsers block autoplay until interaction; try again just in case.
+            video.play().catch(function () {});
+        })();
+    </script>
 </body>
 </html>
